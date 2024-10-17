@@ -1,0 +1,28 @@
+Problem 1: Prime Number
+U - Understand
+
+What is the smallest prime number, and why?
+What is the approach for checking if a number is divisible by another?
+
+P - Plan
+
+Check if the number is less than or equal to 1, return False.
+Loop through numbers starting from 2 up to the square root of n. If n is divisible by any number in that range, return False.
+If the loop completes without finding a divisor, return True.
+
+Pseudocode:
+
+If n <= 1, return False.
+Loop i from 2 to sqrt(n) + 1:
+If n % i == 0, return False.
+Return True.
+
+I - Implement
+
+def is_prime(n):
+    if n <= 1:
+        return False
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
