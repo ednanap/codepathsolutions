@@ -26,3 +26,116 @@ def is_prime(n):
         if n % i == 0:
             return False
     return True
+
+Problem 2: Two-Pointer Reverse List
+U - Understand
+
+What is the "two-pointer" technique?
+Can the list contain any type of element?
+
+P - Plan
+
+Initialize two pointers: one at the start and one at the end of the list.
+Swap the elements at the pointers.
+Move the pointers inward and repeat until they meet.
+Pseudocode:
+
+Initialize left at 0 and right at len(lst) - 1.
+While left < right:
+Swap lst[left] and lst[right].
+Increment left, decrement right.
+
+I - Implement
+
+
+def reverse_list(lst):
+    left, right = 0, len(lst) - 1
+    while left < right:
+        lst[left], lst[right] = lst[right], lst[left]
+        left += 1
+        right -= 1
+
+Problem 3: Evaluating Solutions
+U - Understand
+
+How does list slicing work in terms of space and time complexity?
+How does the two-pointer approach compare to using a new list?
+P - Plan
+
+The two-pointer approach modifies the list in-place, giving a time complexity of O(n) and space complexity of O(1).
+Using slicing creates a new list, giving a time complexity of O(n) and space complexity of O(n).
+
+Problem 4: Move Even Integers
+U - Understand
+
+Should the list be sorted after even numbers are moved to the front?
+Is modifying the list in-place necessary?
+P - Plan
+
+Initialize two pointers: one for the beginning of the list (even numbers) and one for the end (odd numbers).
+Traverse the list and swap elements to move even numbers to the front.
+Pseudocode:
+
+Initialize even pointer at 0.
+For each number in the list:
+If the number is even, swap it with the element at even pointer and increment even.
+I - Implement
+
+def sort_array_by_parity(nums):
+    even = 0
+    for i in range(len(nums)):
+        if nums[i] % 2 == 0:
+            nums[i], nums[even] = nums[even], nums[i]
+            even += 1
+    return nums
+
+Problem 5: Palindrome
+U - Understand
+
+Does case matter for palindrome checks?
+Should the function return the first palindrome even if there are others?
+P - Plan
+
+Iterate over the list of words.
+Check if each word is the same when reversed.
+Return the first palindrome found.
+Pseudocode:
+
+Loop through words:
+If word == word[::-1], return the word.
+If no palindrome is found, return an empty string.
+I - Implement
+
+def first_palindrome(words):
+    for word in words:
+        if word == word[::-1]:
+            return word
+    return ""
+
+Problem 6: Remove Duplicates with O(1)
+U - Understand
+
+What does "in-place" mean in this context?
+Does the list need to be sorted after duplicates are removed?
+P - Plan
+
+Use two pointers: one for iterating through the list and one for keeping track of the unique elements.
+As we find new unique elements, overwrite the previous duplicates.
+Pseudocode:
+
+Initialize i at 1.
+Loop through the list starting from the second element:
+If the current element is not the same as the previous unique one, copy it to position i and increment i.
+Return i.
+I - Implement
+
+
+def remove_duplicates(nums):
+    if not nums:
+        return 0
+    i = 1
+    for j in range(1, len(nums)):
+        if nums[j] != nums[j-1]:
+            nums[i] = nums[j]
+            i += 1
+    return i
