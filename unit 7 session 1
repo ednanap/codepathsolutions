@@ -1,0 +1,172 @@
+Problem 1: Hello Hello
+
+U - Understand
+
+What’s the difference between recursive and iterative functions?
+How can we reproduce the same output without recursion?
+
+P - Plan
+
+The recursive function repeat_hello(n) prints "Hello" n times by calling itself with n - 1 until n reaches 0.
+The iterative version will use a for or while loop to print "Hello" n times without calling itself.
+I - Implement
+
+Recursive version
+def repeat_hello(n):
+    if n > 0:
+        print("Hello")
+        repeat_hello(n - 1)
+
+Iterative version
+
+def repeat_hello_iterative(n):
+    for _ in range(n):
+        print("Hello")
+
+
+Comparison: The recursive version calls itself, while the iterative version uses a loop.
+Difference: The iterative approach generally uses less memory, as recursion adds function calls to the stack.
+
+
+Problem 2: Factorial Cases
+
+U - Understand
+What is the factorial of a number?
+What are the base and recursive cases?
+
+P - Plan
+Define a base case: if n is 0, return 1.
+For the recursive case, return n * factorial(n - 1).
+
+I - Implement
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n - 1)
+
+
+Problem 3: Recursive Sum
+
+U - Understand
+How can we recursively sum elements in a list?
+What are the base and recursive cases?
+
+P - Plan
+Base case: If the list is empty, return 0.
+Recursive case: Return the first element plus the sum of the rest of the list.
+
+I - Implement
+def sum_list(lst):
+    if not lst:
+        return 0
+    else:
+        return lst[0] + sum_list(lst[1:])
+
+
+Time Complexity: O(n) since each element is visited once.
+Space Complexity: O(n) due to recursive call.
+
+Problem 4: Recursive Power of 2
+
+U - Understand
+What does it mean for a number to be a power of two?
+How can we check this condition recursively?
+
+P - Plan
+Base case: If n is 1, return True (2^0 = 1).
+If n is less than 1 or not divisible by 2, return False.
+Recursive case: Divide n by 2 and check again.
+
+I - Implement
+def is_power_of_two(n):
+    if n == 1:
+        return True
+    elif n < 1 or n % 2 != 0:
+        return False
+    else:
+        return is_power_of_two(n // 2)
+
+
+Time Complexity: O(log n) because we divide n by 2 each time.
+Space Complexity: O(log n) due to the recursion depth.
+
+Problem 5: Binary Search I (Iterative)
+
+U - Understand
+How does binary search work?
+What adjustments do we make in each iteration?
+
+P - Plan
+Initialize two pointers: left at 0 and right at the last index.
+While left <= right:
+Calculate middle as (left + right) // 2.
+If lst[middle] == target, return middle.
+If lst[middle] < target, move left to middle + 1.
+Otherwise, move right to middle - 1.
+Return -1 if the target is not found.
+
+I - Implement
+def binary_search(lst, target):
+    left, right = 0, len(lst) - 1
+    while left <= right:
+        middle = (left + right) // 2
+        if lst[middle] == target:
+            return middle
+        elif lst[middle] < target:
+            left = middle + 1
+        else:
+            right = middle - 1
+    return -1
+
+
+Time Complexity: O(log n) as we halve the list each time.
+Space Complexity: O(1) for the iterative approach.
+
+Problem 6: Backwards Binary Search
+U - Understand
+How can we find the last occurrence of the target in a list?
+
+P - Plan
+Perform binary search as usual to locate the target.
+Once found, continue searching towards the right to find the last occurrence.
+
+I - Implement
+def find_last(lst, target):
+    left, right = 0, len(lst) - 1
+    result = -1
+    while left <= right:
+        middle = (left + right) // 2
+        if lst[middle] == target:
+            result = middle  # Update result with the found index
+            left = middle + 1  # Continue searching to the right
+        elif lst[middle] < target:
+            left = middle + 1
+        else:
+            right = middle - 1
+    return result
+Time Complexity: O(log n) for binary search.
+Space Complexity: O(1).
+
+Problem 7: Find Floor
+U - Understand
+What is the floor of x in a sorted list?
+How can binary search help us locate it?
+P - Plan
+Use binary search to find the largest element less than or equal to x.
+Maintain a variable to store the current floor index.
+Update the floor index whenever we find a suitable value, then continue searching.
+I - Implement
+def find_floor(lst, x):
+    left, right = 0, len(lst) - 1
+    floor_index = -1
+    while left <= right:
+        middle = (left + right) // 2
+        if lst[middle] <= x:
+            floor_index = middle  # Update floor to current index
+            left = middle + 1  # Search on the right
+        else:
+            right = middle - 1  # Search on the left
+    return floor_index
+Time Complexity: O(log n) due to binary search.
+Space Complexity: O(1).
