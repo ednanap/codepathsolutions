@@ -1,0 +1,203 @@
+Problem 1: Build a Binary Tree I
+U - Understand
+
+What structure does the tree need to have? (Answer: We’ll follow the specific layout from the provided image.)
+What values should be assigned to each node? (Answer: Details would be needed from the image.)
+P - Plan
+
+Create TreeNode instances for each node, starting from the root and moving to the left and right children.
+Connect each node to its corresponding left and right child as per the tree's structure.
+Pseudocode:
+
+Define each node using TreeNode.
+Set up the left and right children according to the structure.
+I - Implement
+
+class TreeNode:
+    def __init__(self, val, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+# Example implementation (values and structure depend on the given image)
+root = TreeNode(1)
+root.left = TreeNode(2)
+root.right = TreeNode(3)
+root.left.left = TreeNode(4)
+root.left.right = TreeNode(5)
+root.right.left = TreeNode(6)
+root.right.right = TreeNode(7)
+Problem 2: 3-Node Sum I
+U - Understand
+
+Do we need to handle cases where nodes are None? (Answer: No, tree always has exactly 3 nodes.)
+Should we validate the tree structure? (Answer: No, assume correct structure with 3 nodes.)
+P - Plan
+
+Check if root is None. If so, return False.
+Check if root.val is equal to the sum of root.left.val and root.right.val.
+Pseudocode:
+
+If root is None, return False.
+Return whether root.val == root.left.val + root.right.val.
+I - Implement
+
+def check_tree(root):
+    if not root:
+        return False
+    return root.val == (root.left.val if root.left else 0) + (root.right.val if root.right else 0)
+Problem 3: 3-Node Sum II
+U - Understand
+
+Should we handle cases with only one child node? (Answer: Yes, sum should account for missing nodes.)
+Should we check for None root? (Answer: Yes, return False if root is None.)
+P - Plan
+
+If root is None, return False.
+Check if root.val is equal to the sum of the left and right child nodes, handling None nodes as zeros.
+Pseudocode:
+
+If root is None, return False.
+Check if root.val == (root.left.val + root.right.val).
+I - Implement
+
+def check_tree(root):
+    if not root:
+        return False
+    left_val = root.left.val if root.left else 0
+    right_val = root.right.val if root.right else 0
+    return root.val == left_val + right_val
+Problem 4: Find Leftmost Node I
+U - Understand
+
+Should we consider an empty tree? (Answer: Yes, return None if the tree is empty.)
+What if the tree is right-skewed? (Answer: Leftmost node would be the root.)
+P - Plan
+
+Traverse down the left subtree until reaching a leaf.
+Return the value of the last leftmost node.
+Pseudocode:
+
+While root.left exists, move root to root.left.
+Return root.val.
+I - Implement
+
+def left_most(root):
+    if not root:
+        return None
+    while root.left:
+        root = root.left
+    return root.val
+Problem 5: Find Leftmost Node II (Alternative Implementation)
+For the alternative, let's use a recursive solution.
+
+I - Implement (Recursive)
+
+def left_most_recursive(root):
+    if not root or not root.left:
+        return root.val if root else None
+    return left_most_recursive(root.left)
+Problem 6: In-order Traversal
+U - Understand
+
+Should the output be in a list? (Answer: Yes.)
+What happens if the tree is empty? (Answer: Return an empty list.)
+P - Plan
+
+Traverse the left subtree recursively.
+Add the root value.
+Traverse the right subtree recursively.
+Pseudocode:
+
+Call inorder_traversal(root.left), then append root.val, then inorder_traversal(root.right).
+I - Implement
+
+def inorder_traversal(root):
+    return inorder_traversal(root.left) + [root.val] + inorder_traversal(root.right) if root else []
+Problem 7: Binary Tree Size
+U - Understand
+
+Should we return zero if the tree is empty? (Answer: Yes.)
+Do we need to handle specific structures differently? (Answer: No.)
+P - Plan
+
+Recursively count nodes in the left and right subtrees.
+Add 1 for the root node.
+Pseudocode:
+
+Return 1 + size(root.left) + size(root.right) if root exists.
+I - Implement
+
+def size(root):
+    return 1 + size(root.left) + size(root.right) if root else 0
+Problem 8: Binary Tree Find
+U - Understand
+
+Is this a balanced tree? (Answer: Yes, so log time search.)
+Should we return False if the value is not found? (Answer: Yes.)
+P - Plan
+
+Recursively search the left or right subtree for the value.
+If root.val == value, return True.
+Pseudocode:
+
+If root.val == value, return True.
+Recurse into left or right subtree.
+I - Implement
+
+def find(root, value):
+    if not root:
+        return False
+    if root.val == value:
+        return True
+    return find(root.left, value) or find(root.right, value)
+Problem 9: Binary Search Tree Find
+U - Understand
+
+Is the tree balanced? (Answer: Yes, hence log time search.)
+Should the search use BST properties? (Answer: Yes.)
+P - Plan
+
+If root.val equals the target, return True.
+Recurse left or right depending on root.val.
+Pseudocode:
+
+If root.val == value, return True.
+Recurse left if value < root.val; else right.
+I - Implement
+
+def find_bst(root, value):
+    if not root:
+        return False
+    if root.val == value:
+        return True
+    elif value < root.val:
+        return find_bst(root.left, value)
+    else:
+        return find_bst(root.right, value)
+Problem 10: BST Descending Leaves
+U - Understand
+
+Should the output be sorted in descending order? (Answer: Yes.)
+Should the function only consider leaf nodes? (Answer: Yes.)
+P - Plan
+
+Traverse the tree to find leaves.
+Sort leaves in descending order.
+
+Pseudocode:
+
+Collect leaves with recursion.
+Sort them in descending order.
+I - Implement
+
+def descending_leaves(root):
+    def find_leaves(node):
+        if not node:
+            return []
+        if not node.left and not node.right:
+            return [node.val]
+        return find_leaves(node.left) + find_leaves(node.right)
+    
+    leaves = find_leaves(root)
+    return sorted(leaves, reverse=True)
