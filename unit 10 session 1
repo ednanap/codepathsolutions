@@ -1,0 +1,119 @@
+Problem 1: Valid Parentheses
+Understand:
+
+Use a stack to track open parentheses.
+Ensure each closing bracket matches the top of the stack.
+Plan:
+
+Use a stack to store open brackets.
+Iterate through the string:
+Push open brackets onto the stack.
+Pop from the stack if a closing bracket matches the top; otherwise, return False.
+If the stack is empty at the end, the string is valid.
+
+Implement:
+ def is_valid(s):
+    stack = []
+    mapping = {')': '(', '}': '{', ']': '['}
+    for char in s:
+        if char in mapping:
+            top_element = stack.pop() if stack else '#'
+            if mapping[char] != top_element:
+                return False
+        else:
+            stack.append(char)
+    return not stack
+
+Problem 2: Best Time to Buy & Sell Stock
+Understand:
+
+Find the smallest price before the current day for maximum profit.
+Plan:
+
+Track the minimum price so far.
+Compute potential profit for each price.
+Return the maximum profit found.
+
+Implement:
+
+def max_profit(prices):
+    min_price = float('inf')
+    max_profit = 0
+    for price in prices:
+        if price < min_price:
+            min_price = price
+        elif price - min_price > max_profit:
+            max_profit = price - min_price
+    return max_profit
+
+Problem 3: Shuffle Merge
+Understand:
+
+Merge nodes alternately from two lists.
+If one list is exhausted, append the remaining nodes from the other list.
+Plan:
+
+Use two pointers to traverse both lists.
+Alternate adding nodes to the merged list.
+Append remaining nodes if any list is not empty.
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def shuffle_merge(head_a, head_b):
+    dummy = ListNode(0)
+    current = dummy
+    while head_a and head_b:
+        current.next, head_a = head_a, head_a.next
+        current = current.next
+        current.next, head_b = head_b, head_b.next
+        current = current.next
+    current.next = head_a or head_b
+    return dummy.next
+
+Problem 4: Group Anagrams
+Understand:
+
+Use a dictionary where the key is the sorted version of a word.
+Group words with the same sorted version together.
+Plan:
+
+Create a dictionary to store grouped anagrams.
+Iterate through the list:
+Sort each word and use it as a key.
+Append the word to the corresponding group.
+Return the grouped values.
+
+from collections import defaultdict
+
+def group_anagrams(strs):
+    anagrams = defaultdict(list)
+    for word in strs:
+        sorted_word = ''.join(sorted(word))
+        anagrams[sorted_word].append(word)
+    return list(anagrams.values())
+
+
+Problem 5: Sum Root to Leaf Numbers
+Understand:
+
+Perform a DFS traversal, keeping track of the current path's number.
+Add leaf path values to the total sum.
+Plan:
+
+Traverse the tree recursively.
+Multiply the accumulated value by 10 and add the current node's value.
+Add the accumulated value to the sum when a leaf is reached.
+
+Problem 5: Sum Root to Leaf Numbers
+Understand:
+
+Perform a DFS traversal, keeping track of the current path's number.
+Add leaf path values to the total sum.
+Plan:
+
+Traverse the tree recursively.
+Multiply the accumulated value by 10 and add the current node's value.
+Add the accumulated value to the sum when a leaf is reached.
